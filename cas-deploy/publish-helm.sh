@@ -10,8 +10,6 @@ version=$(grep -E 'version' $path_to_chart/Chart.yaml | awk '{print $NF}' | sed 
 
 sed -i.bak "s/^name: .*/name: $repo_name/" "$path_to_chart/Chart.yaml" && rm -rf "$path_to_chart/chart.yaml.bak"
 
-# mv "$chart_name" "$repo_name"
-
 helm package $path_to_chart
 
 if aws ecr describe-repositories --region $region --profile $profile --repository-names $repo_name > /dev/null 2>&1; then
